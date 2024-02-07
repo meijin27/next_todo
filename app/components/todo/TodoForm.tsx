@@ -18,9 +18,11 @@ const TodoForm = ({
     const [tags, setTags] = useState<string[]>([]);
 
     const addClickHandler = () => {
-        onSaveTodo(inputValue, tags);
-        setInputValue("");
-        setTags([]);
+        if (inputValue.trim() !== '') {
+            onSaveTodo(inputValue, tags);
+            setInputValue("");
+            setTags([]);
+        }
     }
 
     return (
@@ -29,6 +31,12 @@ const TodoForm = ({
                 value={inputValue}
                 onChange={setInputValue}
                 placeholder="Enter Todo..." />
+
+            <TagsInput
+                tags={tags}
+                onChangeTags={setTags}
+                autoCompleteTags={autoCompleteTags}
+                placeholder="Enter tags..." />
 
             <ClickButton
                 label="Add"
